@@ -1,0 +1,23 @@
+# 10.250.12.2
+# 10.250.12.1 
+
+- name: Remove docker ad docker-compose from all servers
+  hosts: servidores
+  remote_user: root
+  
+  tasks:
+  - name: Remove docker & docker-engine
+    apt:
+      name: 
+        - "docker"
+        - "docker-engine"
+        - "docker.io"
+        - "containerd"
+        - "runc"
+        - "docker-compose"
+      state: absent
+  
+  - name: Remove dependencies that are no longer required
+    apt:
+      autoremove: yes
+  

@@ -1,0 +1,20 @@
+- name: Post install docker setup on sever 12001 & 12002
+  hosts: 12001,12002 
+  remote_user: curso
+  become: yes
+  
+  tasks:
+  - name: Create the docker group.
+    group:
+      name: docker
+      state: present
+
+  - name: Append user 'curso' to the group 'docker'
+    user:
+      name: curso
+      shell: /bin/bash
+      groups: docker
+      append: yes
+
+  - name: Reset ssh connection para actualizar los cambios en el grupo
+    meta: reset_connection

@@ -1,0 +1,9 @@
+variable "names" {
+  type = set(string)
+  default = [ "aa", "bb", "cc" ]
+}
+
+variable "names_s01" {
+    type = set(string)
+    default = [ "01_serv01", "02_serv01" ]
+}

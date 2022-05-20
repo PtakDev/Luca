@@ -1,0 +1,22 @@
+az login -u luca12@sinensia.onmicrosoft.com -p <password>
+az account set --subscription 'Azure subscription 1'
+
+Resource-Group-LUCA 
+
+#does not have authorization to perform action
+az group create --location westus --name piotrRG 
+
+#not available in location 'westeurope' zones
+az vm create -n piotrVMUbuntu -g Resource-Group-LUCA --image UbuntuLTS --generate-ssh-keys 
+
+
+/home/sinensia/.ssh/authorized_keys
+
+
+
+
+ssh-keygen -m PEM -t rsa -b 4096
+
+
+ansible-playbook test01.yml -e 'ansible_python_interpreter=/usr/bin/python3'
+https://docs.microsoft.com/en-us/azure/developer/ansible/vm-configure?tabs=ansible

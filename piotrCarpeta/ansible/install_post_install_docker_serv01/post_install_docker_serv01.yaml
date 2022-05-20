@@ -1,0 +1,23 @@
+# serv01 ansible_host=s01
+# 10.250.12.1 s01
+
+- name: Post install docker setup on sever serv01
+  hosts: serv01
+  remote_user: sinensia
+  become: yes
+  
+  tasks:
+  - name: Create the docker group.
+    group:
+      name: docker
+      state: present
+
+  - name: Append user 'curso' to the group 'docker'
+    user:
+      name: curso
+      shell: /bin/bash
+      groups: docker
+      append: yes
+
+  - name: Reset ssh connection para actualizar los cambios en el grupo
+    meta: reset_connection
