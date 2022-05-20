@@ -1,0 +1,1 @@
+Simple deployment of 2 gitea and 2 mysql (one for each gitea app) using for loop with map. 

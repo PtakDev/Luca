@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels: 
+    app: gitea
+  name: gitea
+  namespace: gitea
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gitea
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: gitea
+    spec:
+      volumes:
+        - name: gitea-volume
+          persistentVolumeClaim:
+            claimName: gitea
+      containers:
+        - name: gitea
+          image: gitea/gitea:latest
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - mountPath: "/data"
+              name: gitea-volume

@@ -1,0 +1,16 @@
+
+- name: Create Azure VM
+  hosts: localhost
+  connection: local
+  tasks:
+  - name: Create VM with defaults
+    azure_rm_virtualmachine:
+      resource_group: Resource-Group-LUCA
+      name: testvm10
+      admin_username: "sinensia"
+      admin_password: "Sinensia*22"
+      image:
+        offer: CentOS
+        publisher: OpenLogic
+        sku: '7.1'
+        version: latest

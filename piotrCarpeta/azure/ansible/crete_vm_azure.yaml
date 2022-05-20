@@ -1,0 +1,66 @@
+- name: Create Azure VM
+  hosts: localhost
+  connection: local
+
+  tasks:
+  - name: Create virtual network
+    azure_rm_virtualnetwork:
+      resource_group: Resource-Group-LUCA
+      name: piotrVNet
+      address_prefixes: "10.150.0.0/16"
+
+  # - name: Add subnet
+  #   azure_rm_subnet:
+  #     resource_group: Resource-Group-LUCA
+  #     name: piotrSubNet1
+  #     address_prefix: "10.150.1.0/24"
+  #     virtual_network: piotrVNet
+
+  # - name: Create public IP address
+  #   azure_rm_publicipaddress:
+  #     resource_group: Resource-Group-LUCA
+  #     allocation_method: Static
+  #     name: piotrPublicIP
+  #   register: output_ip_address
+
+  # - name: Public IP of VM
+  #   debug:
+  #     msg: "The public IP is {{ output_ip_address.state.ip_address }}."
+
+  # - name: Create Network Security Group that allows SSH
+  #   azure_rm_securitygroup:
+  #     resource_group: Resource-Group-LUCA
+  #     name: piotrNetworkSecurityGroup
+  #     rules:
+  #       - name: SSH
+  #         protocol: Tcp
+  #         destination_port_range: 22
+  #         access: Allow
+  #         priority: 1001
+  #         direction: Inbound
+
+  # - name: Create virtual network interface card
+  #   azure_rm_networkinterface:
+  #     resource_group: Resource-Group-LUCA
+  #     name: piotrNIC
+  #     virtual_network: piotrVNet
+  #     subnet: piotrSubNet1
+  #     public_ip_name: piotrPublicIP
+  #     security_group: piotrNetworkSecurityGroup
+      
+  # - name: Create VM
+  #   azure_rm_virtualmachine:
+  #     resource_group: Resource-Group-LUCA
+  #     name: piotrVM
+  #     vm_size: Standard_DS1_v2
+  #     admin_username: piotr
+  #     ssh_password_enabled: false
+  #     ssh_public_keys:
+  #       - path: /home/azureuser/.ssh/authorized_keys
+  #         key_data: "AAAAB3NzaC1yc2EAAAADAQABAAABgQDt+jSXJWzuVMGimEtA+33kZZsQMA3EKyGbz2uLBUwMl7g2oY5R2H/ykRhgDMGSDZQz8CNpJyXqwcpUqhDzDg82yzrKVEbpRnlwsOasPV+TnmVAZLJK2B2MESrTeJ3IQuzl18z1X/RL1MknnZwA+SqNdWWprPKduLKtQ5b3jNSthCWBvuYLGNTW/BojfoAGImuISjInTwVoiggbzQIZxMCIf1ktGuV9zHt07CnUdipvXJnrFAFUUcHsZqxuVmrQeE/PdRFAQ35EtMtz/LIfiBufRCfhLb0bGjQJxEHiCMYS/YW8lkaBej++GJutH415DKCa/tO+2xi89I2RVTCsSZgmN/5T9g+X94vbm50xJWA1goRPmf96n9WLMRi0yN5l731489L5ZxgDuXNsfUaGSfI4zqgdfXyjf+d6Y0HpuetqPh56VnnepT4XzrYTJ0Zr+9dLiTjlJ/z4wg/Z1X78qGC4LlBJv772Y5NA3tYCkMD1quyhyPlzcwpSvTinbYU2VWU"
+  #     network_interfaces: piotrNIC
+  #     image:
+  #       offer: CentOS
+  #       publisher: OpenLogic
+  #       sku: '7.5'
+  #       version: latest

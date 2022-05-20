@@ -1,0 +1,45 @@
+# Machinas de proxmox  
+# 12001 ansible_host=10.250.0.121
+# 12002 ansible_host=10.250.0.122
+
+- name: Install docker and docker-compose on sever 12001 & 12002
+  hosts: 12001,12002 
+  remote_user: curso
+  become: yes
+  
+  tasks:
+  - name: Install packages to allow apt to use a repository over HTTPS 
+    apt:
+      name: 
+        - "ca-certificates"
+        - "curl"
+        - "gnupg"
+        - "lsb-release"
+      state: present 
+      update_cache: yes
+    
+
+  - name: Add Docker GPG apt Key
+    ansible.builtin.apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+  - name: Add Docker Repository
+    ansible.builtin.apt_repository:
+      repo: deb https://download.docker.com/linux/ubuntu focal stable
+      state: present
+
+  - name: Install Docker Engine
+    apt:
+      name:
+        - "docker-ce"
+        - "docker-ce-cli"
+        - "containerd.io"
+        - "docker-compose-plugin"
+      state: present
+      update_cache: yes
+
+  - name: Install docker-compose
+    apt:
+      name: "docker-compose"
+      state: present

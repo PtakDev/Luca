@@ -1,0 +1,20 @@
+---
+apiVersion: v1
+
+kind: Pod
+metadata:
+  name: miapp
+  labels:
+    app: web
+
+spec:
+  containers:
+    - name: front
+      image: httpd:latest
+      ports:
+        - containerPort: 80
+
+    - name: back
+      image: ubuntu:latest
+      command: ["/bin/bash"]
+      args: ["-c", "while true; do echo hello; sleep 10; done"]
